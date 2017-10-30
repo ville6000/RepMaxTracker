@@ -1,5 +1,8 @@
+const localStorageSetKey = 'rpt_sets'
+const localStorageSets = window.localStorage.getItem(localStorageSetKey)
+
 const state = {
-  sets: []
+  sets: localStorageSets === null ? [] : JSON.parse(localStorageSets)
 }
 
 const getters = {
@@ -16,9 +19,11 @@ const getters = {
 const mutations = {
   addSet: (state, payload) => {
     state.sets.push(payload)
+    window.localStorage.setItem(localStorageSetKey, JSON.stringify(state.sets))
   },
   removeSet: (state, payload) => {
     state.splice(payload, 1)
+    window.localStorage.setItem(localStorageSetKey, JSON.stringify(state.sets))
   }
 }
 
