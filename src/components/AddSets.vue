@@ -53,7 +53,7 @@
         }
 
         set.repetitions = parseInt(set.repetitions, 10)
-        set.weight = parseFloat(set.weight)
+        set.weight = parseFloat(set.weight.replace(/,/g, '.'))
 
         this.$store.dispatch('addSet', Object.assign({}, set))
         this.clearInputs()
