@@ -22,7 +22,7 @@ const mutations = {
     window.localStorage.setItem(localStorageSetKey, JSON.stringify(state.sets))
   },
   removeSet: (state, payload) => {
-    state.splice(payload, 1)
+    state.sets.splice(state.sets.indexOf(payload), 1)
     window.localStorage.setItem(localStorageSetKey, JSON.stringify(state.sets))
   }
 }

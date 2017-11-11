@@ -9,6 +9,7 @@
         <th>Weight</th>
         <th>Volume</th>
         <th>Est. 1RM</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -18,6 +19,7 @@
         <td>{{ set.weight }}</td>
         <td>{{ volume(set) }} kg</td>
         <td>{{ oneRepMax(set) }} kg</td>
+        <td><button class="btn btn-danger btn-sm" @click="deleteSet(set)">Delete</button></td>
       </tr>
       </tbody>
     </table>
@@ -41,6 +43,9 @@
         } else {
           return Math.round((set.weight * set.repetitions * 0.0333) + set.weight)
         }
+      },
+      deleteSet (set) {
+        this.$store.dispatch('removeSet', set)
       }
     },
     computed: {
