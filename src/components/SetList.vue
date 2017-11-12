@@ -17,7 +17,7 @@
         <td>{{ set.date }}</td>
         <td>{{ set.repetitions }}</td>
         <td>{{ set.weight }}</td>
-        <td>{{ volume(set) }} kg</td>
+        <td>{{ set.volume }} kg</td>
         <td>{{ oneRepMax(set) }} kg</td>
         <td>
           <button class="btn btn-danger btn-sm" @click="deleteSet(set)">Delete</button>
@@ -53,9 +53,6 @@
 
         this.order.key = key
       },
-      volume (set) {
-        return set.repetitions * set.weight
-      },
       oneRepMax (set) {
         if (set.repetitions === 1) {
           return set.weight
@@ -72,8 +69,6 @@
         const sets = this.sets.sort((a, b) => {
           if (this.order.key === 'oneRepMax') {
             return this.oneRepMax(b) - this.oneRepMax(a)
-          } else if (this.order.key === 'volume') {
-            return this.volume(b) - this.volume(a)
           } else if (this.order.key === 'date') {
             return format(b.date, 'X') - format(a.date, 'X')
           } else {

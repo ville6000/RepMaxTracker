@@ -42,7 +42,8 @@
           date: '',
           weight: '',
           repetitions: '',
-          exerciseId: ''
+          exerciseId: '',
+          volume: 0
         }
       }
     },
@@ -54,6 +55,7 @@
 
         set.repetitions = parseInt(set.repetitions, 10)
         set.weight = parseFloat(set.weight.replace(/,/g, '.'))
+        set.volume = set.repetitions * set.weight
 
         this.$store.dispatch('addSet', Object.assign({}, set))
         this.clearInputs()
