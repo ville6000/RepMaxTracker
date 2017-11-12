@@ -4,7 +4,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>Date</th>
+        <th @click="changeOrder('date')">Date</th>
         <th @click="changeOrder('repetitions')">Reps</th>
         <th @click="changeOrder('weight')">Weight</th>
         <th @click="changeOrder('volume')">Volume</th>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import format from 'date-fns/format'
+
   export default {
     name: 'SetList',
     props: [
@@ -72,6 +74,8 @@
             return this.oneRepMax(b) - this.oneRepMax(a)
           } else if (this.order.key === 'volume') {
             return this.volume(b) - this.volume(a)
+          } else if (this.order.key === 'date') {
+            return format(b.date, 'X') - format(a.date, 'X')
           } else {
             return b[this.order.key] - a[this.order.key]
           }
