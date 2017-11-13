@@ -1,14 +1,30 @@
 <template>
   <div>
     <h3>{{ exerciseName }}</h3>
+
     <table class="table table-striped">
       <thead>
       <tr>
-        <th @click="changeOrder('date')">Date</th>
-        <th @click="changeOrder('repetitions')">Reps</th>
-        <th @click="changeOrder('weight')">Weight</th>
-        <th @click="changeOrder('volume')">Volume</th>
-        <th @click="changeOrder('oneRepMax')">Est. 1RM</th>
+        <th @click="changeOrder('date')">
+          Date
+          <icon name="sort"></icon>
+        </th>
+        <th @click="changeOrder('repetitions')">
+          Reps
+          <icon name="sort"></icon>
+        </th>
+        <th @click="changeOrder('weight')">
+          Weight
+          <icon name="sort"></icon>
+        </th>
+        <th @click="changeOrder('volume')">
+          Volume
+          <icon name="sort"></icon>
+        </th>
+        <th @click="changeOrder('oneRepMax')">
+          Est. 1RM
+          <icon name="sort"></icon>
+        </th>
         <th></th>
       </tr>
       </thead>
@@ -30,9 +46,14 @@
 
 <script>
   import format from 'date-fns/format'
+  import 'vue-awesome/icons/sort'
+  import Icon from 'vue-awesome/components/Icon'
 
   export default {
     name: 'SetList',
+    components: {
+      Icon
+    },
     props: [
       'sets',
       'exerciseName'
@@ -81,3 +102,9 @@
     }
   }
 </script>
+
+<style>
+  th {
+    cursor: pointer;
+  }
+</style>
