@@ -10,7 +10,10 @@
       <div class="col col-md-8 offset-md-2">
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item" v-for="exercise in exercises" :key="exercise.id">
-            <a class="nav-link" @click="selectExercise(exercise)">{{ exercise.name }}</a>
+            <a class="nav-link" @click="selectExercise(exercise)"
+               :class="{'active': exercise.id === selectedExercise.id}">
+              {{ exercise.name }}
+            </a>
           </li>
         </ul>
 
