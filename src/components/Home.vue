@@ -7,8 +7,17 @@
     </div>
 
     <div class="row">
-      <div class="col">
-        <app-set-lists></app-set-lists>
+      <div class="col col-md-8 offset-md-2">
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item" v-for="exercise in exercises" :key="exercise.id">
+            <a class="nav-link" @click="selectExercise(exercise)">{{ exercise.name }}</a>
+          </li>
+        </ul>
+
+        <div v-if="selectedExercise">
+          <app-exercise-sets :sets="exerciseSets(selectedExercise.id)"
+                             :exerciseName="selectedExercise.name"></app-exercise-sets>
+        </div>
       </div>
     </div>
   </div>
@@ -16,13 +25,37 @@
 
 <script>
   import AddSets from './AddSets.vue'
-  import SetLists from './SetLists.vue'
+  import ExerciseSets from './ExerciseSets.vue'
 
   export default {
     name: 'Home',
     components: {
       'app-add-sets': AddSets,
-      'app-set-lists': SetLists
+      'app-exercise-sets': ExerciseSets
+    },
+    data () {
+      return {
+        selectedExercise: false
+      }
+    },
+    methods: {
+      selectExercise (exercise) {
+        this.selectedExercise = exercise
+      },
+      exerciseSets (id) {
+        return this.$store.getters.setsByExerciseId(id)
+      }
+    },
+    computed: {
+      exercises () {
+        return this.$store.getters.allExercises
+      }
     }
   }
 </script>
+
+<style scoped>
+  .nav-pills a {
+    cursor: pointer;
+  }
+</style>
