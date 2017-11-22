@@ -48,12 +48,14 @@
   import format from 'date-fns/format'
   import 'vue-awesome/icons/sort'
   import Icon from 'vue-awesome/components/Icon'
+  import oneRepMax from '@/mixins/oneRepMax'
 
   export default {
     name: 'SetList',
     components: {
       Icon
     },
+    mixins: [oneRepMax],
     props: [
       'sets',
       'exerciseName'
@@ -73,13 +75,6 @@
         }
 
         this.order.key = key
-      },
-      oneRepMax (set) {
-        if (set.repetitions === 1) {
-          return set.weight
-        } else {
-          return Math.round((set.weight * set.repetitions * 0.0333) + set.weight)
-        }
       },
       deleteSet (set) {
         this.$store.dispatch('removeSet', set)
