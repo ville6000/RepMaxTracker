@@ -5,7 +5,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th @click="changeOrder('date')">
+        <th @click="changeOrder('performedOn')">
           Date
           <icon name="sort"></icon>
         </th>
@@ -21,7 +21,7 @@
           Volume
           <icon name="sort"></icon>
         </th>
-        <th @click="changeOrder('oneRepMax')">
+        <th @click="changeOrder('estimated1Rm')">
           Est. 1RM
           <icon name="sort"></icon>
         </th>
@@ -30,11 +30,11 @@
       </thead>
       <tbody>
       <tr v-for="(set, idx) in sortedSets" :key="idx">
-        <td>{{ set.date }}</td>
+        <td>{{ set.performedOn }}</td>
         <td>{{ set.repetitions }}</td>
         <td>{{ set.weight }}</td>
         <td>{{ set.volume }} kg</td>
-        <td>{{ oneRepMax(set) }} kg</td>
+        <td>{{ set.estimated1Rm }} kg</td>
         <td>
           <button class="btn btn-danger btn-sm" @click="deleteSet(set)">Delete</button>
         </td>
@@ -48,14 +48,12 @@
   import format from 'date-fns/format'
   import 'vue-awesome/icons/sort'
   import Icon from 'vue-awesome/components/Icon'
-  import oneRepMax from '@/mixins/oneRepMax'
 
   export default {
     name: 'SetList',
     components: {
       Icon
     },
-    mixins: [oneRepMax],
     props: [
       'sets',
       'exerciseName'
@@ -83,10 +81,8 @@
     computed: {
       sortedSets () {
         const sets = this.sets.sort((a, b) => {
-          if (this.order.key === 'oneRepMax') {
-            return this.oneRepMax(b) - this.oneRepMax(a)
-          } else if (this.order.key === 'date') {
-            return format(b.date, 'X') - format(a.date, 'X')
+          if (this.order.key === 'performedOn') {
+            return format(b.performedOn, 'X') - format(a.performedOn, 'X')
           } else {
             return b[this.order.key] - a[this.order.key]
           }

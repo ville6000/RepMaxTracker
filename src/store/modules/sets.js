@@ -1,8 +1,7 @@
-const localStorageSetKey = 'rpt_sets'
-const localStorageSets = window.localStorage.getItem(localStorageSetKey)
+import axios from 'axios/index'
 
 const state = {
-  sets: localStorageSets === null ? [] : JSON.parse(localStorageSets)
+  sets: []
 }
 
 const getters = {
@@ -17,19 +16,25 @@ const getters = {
 }
 
 const mutations = {
-  addSet: (state, payload) => {
-    state.sets.push(payload)
-    window.localStorage.setItem(localStorageSetKey, JSON.stringify(state.sets))
+  SET_SETS: (state, payload) => {
+    state.sets = payload
   },
   removeSet: (state, payload) => {
-    state.sets.splice(state.sets.indexOf(payload), 1)
-    window.localStorage.setItem(localStorageSetKey, JSON.stringify(state.sets))
   }
 }
 
 const actions = {
-  addSet: ({commit}, payload) => {
-    commit('addSet', payload)
+  ADD_SET: ({commit, dispatch}, payload) => {
+    axios.post(process.env.RESOURCE_URL + '/sets', payload).then(response => {
+      if (response.status === 201) {
+        dispatch('GET_SETS')
+      }
+    })
+  },
+  GET_SETS: ({commit}) => {
+    axios.get(process.env.RESOURCE_URL + '/sets').then(response => {
+      commit('SET_SETS', response.data)
+    })
   },
   removeSet: ({commit}, payload) => {
     commit('removeSet', payload)

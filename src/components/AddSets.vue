@@ -2,7 +2,7 @@
   <div class="add-sets form-row justify-content-center">
     <div class="form-group col col-6 col-lg-2">
       <label for="date">Date</label>
-      <input type="date" id="date" class="form-control" v-model="set.date">
+      <input type="date" id="date" class="form-control" v-model="set.performedOn">
     </div>
     <div class="form-group col col-6 col-lg-2">
       <label for="exercise" class="control-label">Exercise</label>
@@ -39,11 +39,11 @@
     data () {
       return {
         set: {
-          date: '',
+          performedOn: '',
           weight: '',
           repetitions: '',
           exerciseId: '',
-          volume: 0
+          userId: 1
         }
       }
     },
@@ -55,9 +55,8 @@
 
         set.repetitions = parseInt(set.repetitions, 10)
         set.weight = parseFloat(set.weight.replace(/,/g, '.'))
-        set.volume = set.repetitions * set.weight
 
-        this.$store.dispatch('addSet', Object.assign({}, set))
+        this.$store.dispatch('ADD_SET', Object.assign({}, set))
         this.clearInputs()
       },
       clearInputs () {

@@ -15,6 +15,7 @@
     },
     mounted () {
       this.$store.dispatch('GET_EXERCISES')
+      this.$store.dispatch('GET_SETS')
     }
   }
 </script>
