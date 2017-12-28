@@ -1,10 +1,7 @@
+import axios from 'axios'
+
 const state = {
-  exercises: [
-    { id: 1, name: 'Squat' },
-    { id: 2, name: 'Bench' },
-    { id: 3, name: 'Deadlift' },
-    { id: 4, name: 'OHP' }
-  ]
+  exercises: []
 }
 
 const getters = {
@@ -13,7 +10,23 @@ const getters = {
   }
 }
 
+const actions = {
+  GET_EXERCISES: ({commit}) => {
+    axios.get(process.env.RESOURCE_URL + '/exercises').then(response => {
+      commit('SET_EXERCISES', { exercises: response.data })
+    })
+  }
+}
+
+const mutations = {
+  SET_EXERCISES: (state, { exercises }) => {
+    state.exercises = exercises
+  }
+}
+
 export default {
   state,
+  actions,
+  mutations,
   getters
 }

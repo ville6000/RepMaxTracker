@@ -12,6 +12,9 @@
     name: 'app',
     components: {
       'app-navigation': Navigation
+    },
+    mounted () {
+      this.$store.dispatch('GET_EXERCISES')
     }
   }
 </script>
